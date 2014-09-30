@@ -14,10 +14,6 @@
  * @property {Number} startzoom A number to specify the starting map zoom. Example: 5
  */
 PLUGIT.interfaces.CoreToPluginInterface = function() {
-	this.permitions = [];
-	this.i18n = {};
-	this.startCenter = null;
-	this.startzoom = null;
 	/**
 	 * @param {String} eventName The name of the event to stop observing
 	 * @param {Function} fn The callback to be removed from the event
