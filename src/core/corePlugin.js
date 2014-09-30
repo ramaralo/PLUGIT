@@ -14,9 +14,6 @@ PLUGIT.core = (function() {
 		this.id = "corePlugin";
 
 		var arePluginsInitialized = false;
-		var mapContainer = null;
-		var groupManagerContainer = null;
-		var pluginMap = {};
 		var debugMode = false;
 		var logs = [];
 
@@ -25,11 +22,8 @@ PLUGIT.core = (function() {
 					logs.push(arguments);
 				}
 		};
-
-		var ossGisExtPointInterface = new PLUGIT.interfaces.PluginConnectionInterface(this.id, "ossGis");
+		
 		var logPluginExtPointInterface = new PLUGIT.interfaces.PluginConnectionInterface(this.id, "logPlugin");
-
-
 
 		/**
 		 * Defines a plugin interface. This is how a plugin sees CORE at the moment CORE calls start() on each plugin, passing pluginToCoreInterface as an argument.
@@ -214,32 +208,14 @@ PLUGIT.core = (function() {
 		};
 
 		/**
-		 * Defines data from configuration files as well as permitions from SCA
+		 * Defines data from configuration
 		 * @ignore
 		 * @param {Object} obj
-		 * @param {String[]} obj.permitions
-		 * @param {Json} obj.i18n
-		 * @param {Number[]} obj.startCenter
-		 * @param {Number} obj.startzoom
-		 * @param {Boolean} [obj.debugMode]
 		 */
 		this.defineData = function(obj) {
-			pluginToCoreInterface.permitions = obj.permitions;
-			pluginToCoreInterface.i18n = new PLUGIT.libs.i18n(obj.i18n);
-			pluginToCoreInterface.startCenter = obj.startCenter;
-			pluginToCoreInterface.startzoom = obj.startzoom;
-			pluginToCoreInterface.clientData = obj.clientData;
-			pluginToCoreInterface.EPSG = obj.mapProjectionCode;
-			pluginToCoreInterface.numZoomLevels = obj.mapNumZoomLevels;
-			pluginToCoreInterface.mainMenuVisible = obj.mainMenuVisible;
-			pluginToCoreInterface.serverLocation = obj.serverLocation;
-
+			//TODO: finish implementation
 			debugMode = (obj.debugMode !== undefined) ? obj.debugMode : false;
 		};
-
-		this.getI18n = function() {
-			return pluginToCoreInterface.i18n;
-		}
 
 		/**
 		 * @ignore
@@ -351,8 +327,7 @@ PLUGIT.core = (function() {
 			return interfaceClone;
 		};
 
-		// constructor
-		this.defineExtentionPoint({single: true, name: "ossGis", interfaceObj: ossGisExtPointInterface});
+		// constructor		
 		this.defineExtentionPoint({single: true, name: "logManager", interfaceObj: logPluginExtPointInterface});
 	}
 
@@ -424,11 +399,6 @@ PLUGIT.core = (function() {
 			},
 			getPluginById: function(stringId) {
 				return newCore.getPluginById(stringId);
-			},
-			i18n: {
-				getMessage: function(args) {
-					return newCore.getI18n().getMessage(arguments[0], arguments[1]);
-				}
 			},
 			getDefinedData: function() {
 				return newCore.getDefinedData();

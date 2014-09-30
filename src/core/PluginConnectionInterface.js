@@ -26,7 +26,7 @@
 PLUGIT.interfaces.PluginConnectionInterface = function(pluginId, extentionPoint) {
 	this.id = pluginId;
 	this.extentionPoint = (extentionPoint !== undefined) ? extentionPoint : null;
-	this.parentApi = {};
+	this.api = {};
 	/**
 	 * Everytime a plugin calls connect() on any plugin under its extentions points, it must pass an instance of {@link {@link PLUGIT.interfaces.PluginConnectionInterface}} as an interface.
 	 * As a response, the plugin on the extention point should call connected() on that interface passing an interface of type {@link {@link PLUGIT.interfaces.PluginConnectionResponseInterface}}
