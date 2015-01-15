@@ -129,14 +129,6 @@ PLUGIT.core = (function() {
 		}
 
 
-		function createLayout() {
-			mapContainer = $("<div id=\"PLUGITMapContainer\" style=\"width: 80%; bottom: 0px; top: 0px; position: absolute; float: left;\" />");
-			groupManagerContainer = $("<div id=\"PLUGITGroupManagerContainer\" style=\"bottom: 0px; top: 0px; right: 0px; width: 20%; position: absolute;\" />");
-
-			$("#PLUGITLayout").append(mapContainer);
-			$("#PLUGITLayout").append(groupManagerContainer);
-		}
-
 		/**
 		 * @ignore
 		 */
