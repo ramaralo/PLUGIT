@@ -12,8 +12,6 @@ PLUGIT.proto.Error = function() {
 	var actions = [];
 	
 	/**
-	 * Define o tipo de erro.
-	 * Tipos possíveis são: <br/>
 	 * Defines error type.
 	 * Allowed types are those available at PLUGIT.ERROR_TYPES
 	 * 
