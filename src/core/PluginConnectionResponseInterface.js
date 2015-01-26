@@ -16,8 +16,7 @@
 PLUGIT.interfaces.PluginConnectionResponseInterface = function(pluginId) {
 	this.id = pluginId;
 	this.api = {};
-	
-	
+
 	/**
 	 * @ignore
 	 * @param pluginId

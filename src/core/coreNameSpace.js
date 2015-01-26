@@ -30,5 +30,6 @@ var PLUGIT = {
 		 * @description Utility functions
 		 */
 		util:{
-		}
+		},
+		ERROR_TYPES: ["FATAL", "SIMPLE"]
 };

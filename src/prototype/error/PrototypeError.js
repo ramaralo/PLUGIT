@@ -1,11 +1,11 @@
 /**
- * Generalização da representação de erros para runtime.
- * 
- * 
+ * Runtime generic error representation
+ *
  * @returns {PLUGIT.proto.Error}
  */
 PLUGIT.proto.Error = function() {
-	var allowedTypes = ["fatal", "simple"];
+	var allowedTypes = PLUGIT.ERROR_TYPES;
+
 	var errorType = undefined;
 	var errorDescription = undefined;
 	var errorInfo = undefined;
@@ -14,16 +14,15 @@ PLUGIT.proto.Error = function() {
 	/**
 	 * Define o tipo de erro.
 	 * Tipos possíveis são: <br/>
-	 * <li>
-	 * <ul>fatal</ul>
-	 * <ul>simple</ul>
-	 * </li>
+	 * Defines error type.
+	 * Allowed types are those available at PLUGIT.ERROR_TYPES
 	 * 
 	 * @param {String} type o tipo de erro
 	 * @throws {TypeError} Se type não é uma string
 	 */
 	this.setType = function(type) {
 		if(typeof(type) === "string") {
+			//TODO: Remove jquery dependency
 			if($.inArray(type, allowedTypes) === -1) {
 				throw new TypeError("PLUGIT.proto.Error.SetType(). Error type: " + type + "is not supported.");
 			}
@@ -37,7 +36,7 @@ PLUGIT.proto.Error = function() {
 	
 	
 	/**
-	 * Devolve o tipo de erro.
+	 * Returns erro type
 	 * 
 	 * @returns {String}
 	 */
@@ -46,8 +45,7 @@ PLUGIT.proto.Error = function() {
 	};
 	
 	/**
-	 * Define a descrição do erro. A descrição do erro deve ser um texto que apresenta detalhes do que aconteceu e, sempre que possível, descrever elternativas de resolução que os botões 
-	 * definidos com setActions() implementam.
+	 * Defines error description
 	 * 
 	 * @param {String} description String com a descrição do erro
 	 * @throws {TypeError} Se description não é uma string
@@ -61,8 +59,8 @@ PLUGIT.proto.Error = function() {
 	};
 	
 	/**
-	 * Devolve a descrição do erro.
-	 * 
+	 * Returns error description
+	 *
 	 * @returns {String}
 	 */
 	this.getErrorDescription = function() {
@@ -70,9 +68,9 @@ PLUGIT.proto.Error = function() {
 	};
 	
 	/**
-	 * Define a informação específica do erro. Deve ser um texto que permita ao utilizador perceber o que aconteceu, de uma forma sucinta.
-	 * 
-	 * @throws {TypeError} Se infoString não é uma string
+	 * Defines error info.
+	 *
+	 * @throws {TypeError} If infostring is not a string
 	 */
 	this.setErrorInfo = function(infoString) {
 		if(typeof(infoString) !== "string") {
@@ -83,7 +81,7 @@ PLUGIT.proto.Error = function() {
 	};
 	
 	/**
-	 * Devolve a informação específica do erro.
+	 * Returns error info.
 	 * 
 	 * @returns {String}
 	 */
@@ -92,15 +90,16 @@ PLUGIT.proto.Error = function() {
 	};
 	
 	/**
-	 * Adiciona definições de acções a tomar mediante o erro. Cada definição de acção fornece o label já internacionalizado, e uma função a ser executada se essa acção for escolhida.
-	 * 
-	 * @param {Array} objArray Array de acções sob a forma de [{label: <string>, actions: <function>}, ...]
-	 * @throws {TypeError} Se: 
+	 * Adds definition pf actions to take for the error. Each action definition must provide the label and an associated function to be executed if that action is choosen
+	 *
+	 * @param {Array} objArray Action array under the form of objects like: [{label: <string>, actions: <function>}, ...]
+	 * @throws {TypeError} If:
 	 * <li>
-	 * <ul>objArray não é um array</ul>
-	 * <ul>cada definição de acção não é um objeto</ul>
+	 * <ul>objArray is not an array</ul>
+	 * <ul>each action definition is not an object</ul>
 	 * <ul>cada definição de acção não tem um atributo label ou não é uma string</ul>
-	 * <ul>cada definição de acção não tem um atributo action ou não é uma função</ul>
+	 * <ul>each action definition doesn't have a label attribute or is not a string</ul>
+	 * <ul>each action definition doesn'nt have an action attribute ot is not a function</ul>
 	 * </li>
 	 */
 	this.addActions = function(objArray) {
@@ -131,8 +130,8 @@ PLUGIT.proto.Error = function() {
 	};
 	
 	/**
-	 * Devolve ações definidas com setActions().
-	 * 
+	 * Returns actions defined by setActions()
+	 *
 	 * @returns {Array} Array de definições de acções do tipo [{label: <action>, action: <function>}, ...]
 	 */
 	this.getActions = function() {

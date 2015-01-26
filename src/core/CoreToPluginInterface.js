@@ -3,7 +3,7 @@
  * 
  * 
  * When CORE calls the start() method (on the RESUME fase) on any plugin, it will pass a CoreToPluginInterface instance as an argument. <br/>
- * For specific plugins, or CORE extention points the interface may be extended, but this definition is allways present. Every plugin should redefine
+ * For specific plugins, or CORE extention points the interface may be extended, but this definition is always present. Every plugin should redefine
  * its start() method, knowing that an instance of {@link {@link PLUGIT.interfaces.CoreToPluginInterface}} will be passed as an argument and should keep
  * a reference to this argument in order to keep a "connection" to CORE enviorment.
  * 

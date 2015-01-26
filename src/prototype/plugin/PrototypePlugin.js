@@ -3,7 +3,7 @@
  *
  * @class
  * @augments Observable
- * @propertiy {any} id The plugin id
+ * @propertiy {String} id The plugin id
  * @constructor
  * @returns {PLUGIT.proto.Plugin}
  *
@@ -57,6 +57,7 @@ PLUGIT.proto.Plugin = function() {
 	};
 
 	/**
+	 * // TODO: evaluate ig this method is really needed or if it exposes sensitive data
 	 * Gets all plugins at a specific extention point.
 	 *
 	 *
@@ -107,6 +108,33 @@ PLUGIT.proto.Plugin = function() {
 		return hasExtentionPoints;
 	};
 
+	function validateAddExtentionArguments(paramObj) {
+		if (paramObj === undefined) {
+			throw new TypeError("PLUGIT.proto.Plugin.addExtention(). No argument found.");
+		}
+		if (!(paramObj instanceof Object)) {
+			throw new TypeError("PLUGIT.proto.Plugin.addExtention(). Argument is not an object.");
+		}
+
+		if (paramObj.extentionPoint === undefined) {
+			throw new TypeError("PLUGIT.proto.Plugin.addExtention(). Argument has no attribute named extentionPoint.");
+		}
+		if (typeof(paramObj.extentionPoint) != "string") {
+			throw new TypeError("PLUGIT.proto.Plugin.addExtention(). Typeof extentionPoint attribute is not string");
+		}
+
+		if (paramObj.plugin === undefined) {
+			throw new TypeError("PLUGIT.proto.Plugin.addExtention(). Argument attribute \"plugin\" is undefined");
+		}
+		if (!(paramObj.plugin instanceof PLUGIT.proto.Plugin)) {
+			throw new TypeError("PLUGIT.proto.Plugin.addExtention(). Argument attribute \"plugin\" is not an insatnceof PLUGIT.proto.Plugin");
+		}
+
+		if (!paramObj.plugin.hasConnection({extentionPoint: paramObj.extentionPoint, pluginId: this.id})) {
+			throw new TypeError("PLUGIT.proto.Plugin.addExtention(). Trying to add a plugin with id: " + paramObj.plugin.id + " to extention point: " + paramObj.extentionPoint + " but plugin: " + paramObj.plugin.id + " has no connection defined for plugin: " + this.id);
+		}
+	}
+
 	/**
 	 * Adds a plugin to an extention point
 	 * @param {Object} paramObj
@@ -116,30 +144,7 @@ PLUGIT.proto.Plugin = function() {
 	this.addExtention = function(paramObj) {
 		var added = false;
 
-		if(paramObj === undefined) {
-			throw new TypeError("PLUGIT.proto.Plugin.addExtention(). No argument found.");
-		}
-		if(!(paramObj instanceof Object)) {
-			throw new TypeError("PLUGIT.proto.Plugin.addExtention(). Argument is not an object.");
-		}
-
-		if(paramObj.extentionPoint === undefined) {
-			throw new TypeError("PLUGIT.proto.Plugin.addExtention(). Argument has no attribute named extentionPoint.");
-		}
-		if(typeof(paramObj.extentionPoint) != "string") {
-			throw new TypeError("PLUGIT.proto.Plugin.addExtention(). Typeof extentionPoint attribute is not string");
-		}
-
-		if(paramObj.plugin === undefined) {
-			throw new TypeError("PLUGIT.proto.Plugin.addExtention(). Argument attribute \"plugin\" is undefined");
-		}
-		if(!(paramObj.plugin instanceof PLUGIT.proto.Plugin)) {
-			throw new TypeError("PLUGIT.proto.Plugin.addExtention(). Argument attribute \"plugin\" is not an insatnceof PLUGIT.proto.Plugin");
-		}
-
-		if(!paramObj.plugin.hasConnection({extentionPoint: paramObj.extentionPoint, pluginId: this.id})) {
-			throw new TypeError("PLUGIT.proto.Plugin.addExtention(). Trying to add a plugin with id: " + paramObj.plugin.id + " to extention point: " + paramObj.extentionPoint + " but plugin: " + paramObj.plugin.id + " has no connection defined for plugin: " + this.id);
-		}
+		validateAddExtentionArguments(paramObj);
 
 		if(this.hasExtentionPoint(paramObj.extentionPoint)) {
 			if(extentionPoints[paramObj.extentionPoint] instanceof Array) {

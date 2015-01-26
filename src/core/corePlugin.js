@@ -368,20 +368,11 @@ PLUGIT.core = (function() {
 				newCore.plugExtentions();
 				newCore.callConnectOnPlugins();
 			},
-			/**
-			 * Convenience method for accessing extentions points
-			 * @deprecated Will be droped in future verisons
-			 * @returns {Object}
-			 */
-			getExtentionPoints: function() {
-				return newCore.getExtentionPoints();
-			},
-			reset: function() {
-				newCore.reset();
-			},
+
 			getPluginsEvents: function() {
 				return newCore.getPluginsEvents();
 			},
+
 			/**
 			 * Returns a list of loaded plugin IDs
 			 * @returns {Array}
