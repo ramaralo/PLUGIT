@@ -14,16 +14,9 @@ PLUGIT.core = (function() {
 		this.id = "corePlugin";
 
 		var arePluginsInitialized = false;
-		var debugMode = false;
-		var logs = [];
 
-		var console = { // permite invocar localmente o console, sem que vá ao scope window.
-				log: function() {
-					logs.push(arguments);
-				}
-		};
-		
-		var logPluginExtPointInterface = new PLUGIT.interfaces.PluginConnectionInterface(this.id, "logPlugin");
+		//TODO: evaluate if this is really needed
+		var debugMode = false;
 
 		/**
 		 * Defines a plugin interface. This is how a plugin sees CORE at the moment CORE calls start() on each plugin, passing pluginToCoreInterface as an argument.
@@ -218,6 +211,7 @@ PLUGIT.core = (function() {
 			validatePluginToLoad(pluginInstance);
 
 			console.log("Core trying to load plugin ", pluginInstance);
+
 			pluginMap[pluginInstance.id] = pluginInstance;
 
 			console.log("Core loaded plugin: ", pluginInstance);
@@ -232,16 +226,6 @@ PLUGIT.core = (function() {
 				for ( var key in pluginMap) {
 					delete pluginMap[key];
 				};
-			};
-		};
-
-		/**
-		 * Faz o window.console.log de todos os logs criados localmente
-		 */
-		this.dumpLogs = function() {
-			var arrayLength = logs.length;
-			for ( var l = 0; l < arrayLength; l++) {
-				window.console.log(logs[l]);
 			};
 		};
 
@@ -319,8 +303,6 @@ PLUGIT.core = (function() {
 			return interfaceClone;
 		};
 
-		// constructor		
-		this.defineExtentionPoint({single: true, name: "logManager", interfaceObj: logPluginExtPointInterface});
 	}
 
 	Core.prototype = new PLUGIT.proto.Plugin();
@@ -379,9 +361,6 @@ PLUGIT.core = (function() {
 			},
 			getDefinedData: function() {
 				return newCore.getDefinedData();
-			},
-			dumpLogs: function() {
-				newCore.dumpLogs();
 			}
 		};
 
