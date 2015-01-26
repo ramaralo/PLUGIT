@@ -7,11 +7,6 @@
  * its start() method, knowing that an instance of {@link {@link PLUGIT.interfaces.CoreToPluginInterface}} will be passed as an argument and should keep
  * a reference to this argument in order to keep a "connection" to CORE enviorment.
  * 
- * @class
- * @property {String[]} permitions An array of SCA's PI's
- * @property {PLUGIT.libs.i18n} i18n An instance of {@link {@link PLUGIT.libs.i18n}} already popuplated with all i18n keys from propertie files
- * @property {Number[]} startCenter An array of LAT, LONG defined on the key PLUGIT.map.startCenter PLUGIT_config.properties. Example. [17, -22]
- * @property {Number} startzoom A number to specify the starting map zoom. Example: 5
  */
 PLUGIT.interfaces.CoreToPluginInterface = function() {
 	/**
