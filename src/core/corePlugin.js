@@ -339,17 +339,11 @@ PLUGIT.core = (function() {
 	 *
 	 */
 	var publicInterface = {
-			/**
-			 * Defines data from configuration files as well as permitions from SCA.
-			 * This method is called once index.jsp is loaded on the browser and its arguments are managed by PLUGIT, so there will be no need to call this manually.
-			 * <p>This documentations exists only for information purpose</p>
-			 *
-			 * @param {Object} obj parameters object
-			 * @param {String[]} obj.permitions Array of strings
-			 * @param {Json} obj.i18n
-			 * @param {Number[]} obj.startCenter
-			 * @param {Number} obj.startzoom
-			 */
+		/**
+		 * Defines data from configuration
+		 * @ignore
+		 * @param {Object} obj
+		 */
 			defineData : function(obj) {
 				newCore.defineData(obj);
 			},
